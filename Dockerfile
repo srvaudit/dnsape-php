@@ -1,7 +1,9 @@
-FROM php:7.3.1-fpm-alpine
+FROM php:7.3.1-fpm
 
 # install dependencies
-RUN apk update && apk add --no-cache curl-dev git nodejs-current-npm icu-dev iputils bind-tools vim && rm -rf /var/cache/apk/*
+RUN apt-get update && \
+    apt-get install -y libicu-dev git vim iputils-ping procps sudo dnsutils && \
+    rm -r /var/lib/apt/lists/* 
 RUN docker-php-ext-install intl
 RUN cd /usr/local/etc/php && mv php.ini-development php.ini
 
